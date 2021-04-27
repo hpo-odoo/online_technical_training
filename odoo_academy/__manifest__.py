@@ -27,6 +27,6 @@
     ],
     
     'demo': [
-        
+        'demo/academy_demo.xml',
     ],
 }
