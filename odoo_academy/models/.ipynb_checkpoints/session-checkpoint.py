@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
 from datetime import timedelta
@@ -30,6 +30,17 @@ class Session(models.Model):
                           compute='_compute_end_date',
                           inverse='_inverse_end_date',
                           store=True)
+    
+    state = fields.Selection(string='States',
+                            selection=[('draft', 'Draft'),
+                                      ('open', 'Open'),
+                                      ('done', 'Done'),
+                                      ('canceled', 'Canceled')],
+                            default='draft',
+                            required=True)
+    
+    total_price = fields.Float(string='Total Price',
+                              related='course_id.total_price')
     
     @api.depends('start_date', 'duration')
     def _compute_end_date(self):
